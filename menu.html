@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>menu</title>
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<link rel="stylesheet" href="js/element-ui1413.css">
+<!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> -->
+<script src="js/vue.js"></script>
+<script src="js/elementui.js"></script>
+<style type="text/css">
+*{list-style:none;font-size:14px;font-family:tahoma;}
+#app{width:350px;}
+
+</style>
+</head>
+<body>
+
+
+<div id="app">
+
+    <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+      <el-submenu index="1">
+        <template slot="title"><i class="el-icon-message"></i>任务管理</template>
+          <el-menu-item index="1-1">选项1</el-menu-item>
+          <el-menu-item index="1-2">选项2</el-menu-item>
+          <el-menu-item index="1-3">选项3</el-menu-item>
+          <el-menu-item index="1-4-1">选项4</el-menu-item>
+        </el-submenu>
+
+       <el-submenu index="2">
+        <template slot="title"><i class="el-icon-message"></i>基础管理</template>
+          <el-menu-item index="1-1">选项1</el-menu-item>
+          <el-menu-item index="1-2">选项2</el-menu-item>
+          <el-menu-item index="1-3">选项3</el-menu-item>
+        </el-submenu>
+
+
+      <el-menu-item index="3"><i class="el-icon-setting"></i>导航三</el-menu-item>
+
+    </el-menu>
+ 
+
+</div>
+
+<script type="text/javascript">
+var Main = {
+    methods: {
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
+      }
+    }
+  }
+var Ctor = Vue.extend(Main)
+new Ctor().$mount('#app')
+
+</script>
+</body>
+</html>
+

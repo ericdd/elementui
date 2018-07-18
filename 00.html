@@ -6,7 +6,6 @@
 <meta name="Keywords" content="" />
 <meta name="Description" content="" />
 <link rel="stylesheet" href="js/element-ui.css">
-<!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> -->
 <script src="js/vue.js"></script>
 <script src="js/elementui.js"></script>
 <style type="text/css">
@@ -25,9 +24,9 @@
 <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
 
 
-<el-dialog title="收货地址" :visible.sync="dialogTableVisible">
+<el-dialog title="收货地址" v-model="dialogTableVisible">
   <el-table :data="gridData">
-    <el-table-column property="date" label="日期" width="150"></el-table-column>
+    <el-table-column prop="date" label="日期" width="150"></el-table-column>
     <el-table-column property="name" label="姓名" width="200"></el-table-column>
     <el-table-column property="address" label="地址"></el-table-column>
   </el-table>
