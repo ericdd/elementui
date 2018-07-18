@@ -6,9 +6,11 @@
 <meta name="Keywords" content="" />
 <meta name="Description" content="" />
 <link rel="stylesheet" href="js/element-ui.css">
+
 <script src="js/vue.js"></script>
 <script src="js/elementui.js"></script>
 <script src="js/vue-resource.js"></script>
+<script src="js/jquery-1.9.1.min.js"></script>
 <style type="text/css">
 *{list-style:none;font-size:14px;font-family:tahoma;}
 </style>
@@ -18,12 +20,12 @@
 
 
 <div id="app">
-<template>
-  <el-select v-model="value9" filterable clearable remote placeholder="请输入关键词" :remote-method="remoteMethod">
+
+  <el-select v-model="value9" filterable clearable remote placeholder="请输入关键词" :remote-method="remoteMethod" class="mq">
     <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
     </el-option>
   </el-select>
-</template>
+
 </div>
 
 
@@ -39,6 +41,12 @@ var Main = {
     },
     mounted: function() {
 		this.value9 = "1FD69001";
+		$(".mq input").attr("readonly","readonly").focus(function() {
+			$(".mq input").removeAttr("readonly")
+		}).blur(function() {
+			$(".mq input").val("readonly")
+		})
+	
     },
     methods: {
       remoteMethod: function(query) {
