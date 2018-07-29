@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>uie</title>
+<title>button</title>
 <meta name="Keywords" content="" />
 <meta name="Description" content="" />
 <link rel="stylesheet" href="js/element-ui.css">
@@ -17,26 +17,22 @@
 
 
 <div id="app">
-	<el-button type="primary" :loading="false" size="mini">搜索</el-button>
-	<el-button type="primary" :loading="true" size="mini">搜索</el-button>
+	<el-button type="primary" :loading="true" size="tiny">搜索</el-button>
+	<el-button type="primary" :loading="loading" size="mini" @click="foo()">搜索</el-button>
 </div>
 
 
 <script type="text/javascript">
 
 var Main = {
-    data: funciton() {
+    data: function() {
       return {
-        dialogVisible: false
-      };
+        loading: false,
+      }
     },
     methods: {
-      handleClose: funciton(done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done();
-          })
-          .catch(_ => {});
+      foo: function() {
+		this.loading = true;
       }
     }
   };
