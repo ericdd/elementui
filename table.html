@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>table</title>
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<link rel="stylesheet" href="js/element-ui.css">
+<script src="js/vue.js"></script>
+<script src="js/elementui.js"></script>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+
+<div id="app">
+<template>
+  <el-table ref="singleTable" :data="tableData" highlight-current-row @row-click="cliRow" style="width: 100%">
+    <el-table-column type="index" width="50">
+    </el-table-column>
+    <el-table-column property="date" label="日期" width="120">
+    </el-table-column>
+    <el-table-column property="name" label="姓名" width="120">
+    </el-table-column>
+    <el-table-column property="address" label="地址">
+    </el-table-column>
+
+	<el-table-column label="操作" width="150" align="center">
+		<template slot-scope="scope">
+			<div class="">
+				<span class="alink bedit">修改</span>
+				<span class="alink bdelete">删除</span>
+			</div>
+		</template>
+	</el-table-column>
+
+
+
+  </el-table>
+  <div style="margin-top: 20px">
+    <el-button @click="setCurrent(tableData[1])">选中第二行</el-button>
+    <el-button @click="setCurrent()">取消选择</el-button>
+  </div>
+</template>
+</div>
+
+
+<script type="text/javascript">
+
+var Main = {
+    data: function() {
+      return {
+        tableData: [{
+          date: '2016-05-02',
+          name: 'aa',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: 'bb',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: 'cc',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }],
+        currentRow: null
+      }
+    },
+
+    methods: {
+      setCurrent: function(row) {
+        this.$refs.singleTable.setCurrentRow(row);
+      },
+
+      cliRow: function(row, e, column) {
+		if(e.target.className=='alink bedit'){
+			console.log(row.name);
+		}else if(e.target.className=='alink bdelete'){
+			this.doDelete(row)
+		}
+      },
+
+	 doDelete: function(row) {
+	  var that = this
+      this.$confirm('确定删除?', '提示', {
+          type: 'warning'
+        }).then(function(){
+		  row.address = Math.random()
+		  that.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(function(){});
+		}
+  }
+}
+var Ctor = Vue.extend(Main)
+new Ctor().$mount('#app')
+
+</script>
+</body>
+</html>
+
