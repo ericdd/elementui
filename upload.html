@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>upload</title>
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/vue.js"></script>
+    
+    <!--<link rel="stylesheet" href="js/element-ui1413.css">-->
+    <!--<script src="js/elementui1413.js"></script>-->
+    
+    <link rel="stylesheet" href="js/element-ui.css">
+    <script src="js/elementui.js"></script>
+    
+    <script src="js/fun.js"></script>
+    
+    <style type="text/css">
+        * {list-style:none;font-size:14px;font-family:tahoma;}
+        #uploadbox{margin:0 0 15px 100px;}
+        
+        #app{margin: 50px 50px}
+        .footer{margin: 20px 100px;}
+    </style>
+</head>
+<body>
+
+<pre>
+
+accept 属性规定了可通过文件上传提交的服务器接受的文件类型
+注意：accept 属性仅适用于 input type="file"
+
+accept="image/gif, image/jpeg, image/png"
+image/*	接受所有的图像文件。
+audio/*	接受所有的声音文件。
+video/*	接受所有的视频文件。
+
+</pre>
+
+<hr>
+
+
+<div id="app">
+    
+    <el-form :model="addForm" :rules="reviseRules" ref="addForm" label-width="100px" class="demo-ruleForm">
+        
+        <el-row>
+            <el-col :span="8">
+                <el-form-item label="重量" prop="weight">
+                    <el-input v-model="addForm.weight"></el-input>
+                </el-form-item>
+            </el-col>
+        
+        </el-row>
+    
+        <el-row>
+            <el-col :span="8">
+                <div id="uploadbox">
+                    <el-upload class="upload-demo" ref="upload"
+                               action="/elementui/00.php/"
+                               type="file"
+                               accept="image/*"
+                               :auto-upload="false"
+                               :multiple="false"
+                               :data="addForm"
+                               :limit="1"
+                               :on-change="upload_change"
+                               :on-progress="upload_progress"
+                               :on-success="upload_successe"
+                               :file-list="fileList">
+                        <el-button slot="trigger" size="small" type="primary">选择文件</el-button>
+                    </el-upload>
+        </div>
+            </el-col>
+
+        </el-row>
+    </el-form>
+    
+    
+    <div slot="footer" class="footer">
+        <el-button type="primary" :loading="loading" @click="doAdd">确 定</el-button>
+	</div>
+
+
+</div>
+
+
+<script type="text/javascript">
+    
+    var Main = {
+        mixins: [myMixin],
+        data: function () {
+            return {
+                
+                addForm: {
+                    weight: '',
+                },
+                
+                importVisible: false,
+                
+                reviseRules: {
+                    weight: [
+                        {required: true, message: '请输入重量', trigger: 'blur'}
+                    ],
+                
+                }
+            };
+        },
+        
+        methods: {
+            
+            doAdd: function () {
+                var that = this;
+                this.$refs["addForm"].validate(function (valid) {
+                    if (!valid) {
+                        return
+                    }
+                    console.log('submit.... ', that.fileList.length, that.fileList);
+                    
+                    if($("#uploadbox li.el-upload-list__item")[0]) {
+                        that.$refs.upload.submit();
+                    }
+    
+                });
+            },
+    
+            upload_progress: function (response, file, fileList) {
+                this.loading = true;
+            },
+    
+            upload_successe: function (response, file, filelist) {
+                this.loading = false;
+                this.fileList = [];
+                filelist = []
+                this.open2('上传成功', 2);
+            },
+    
+            upload_change: function (file, fileList) {
+                this.fileList = fileList;
+            },
+            
+        },
+    
+        created: function () {
+            // this.loading = true;
+        }
+    };
+    
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#app')
+
+
+</script>
+</body>
+</html>
+
